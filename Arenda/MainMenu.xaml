@@ -1,0 +1,205 @@
+﻿<Window x:Class="Arenda.MainMenu"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Главное меню"
+        Width="1000"
+        Height="700"
+        WindowStartupLocation="CenterScreen"
+        Background="#F9FAFB">
+    <Grid>
+        <Border Background="White" CornerRadius="10" Padding="15" Margin="10">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <!-- Верхняя панель -->
+                <Grid Grid.Row="0" Margin="0,0,0,15">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Кнопка фильтров -->
+                    <Button Content="Фильтры"
+                            Width="120"
+                            Height="35"
+                            Margin="5"
+                            Click="OpenFiltersButton_Click">
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border Background="#1E90FF"
+                                        CornerRadius="10"
+                                        Padding="5">
+                                    <TextBlock Text="{TemplateBinding Content}"
+                                               Foreground="White"
+                                               HorizontalAlignment="Center"
+                                               VerticalAlignment="Center"
+                                               FontSize="14"
+                                               FontWeight="Bold" />
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+
+                    <!-- Заголовок -->
+                    <TextBlock Text="Главное меню"
+                               Grid.Column="1"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               FontSize="18"
+                               FontWeight="Bold"
+                               Foreground="#1E90FF" />
+
+                    <!-- Кнопка профиля -->
+                    <Button Content="Профиль"
+                            Width="120"
+                            Height="35"
+                            Margin="5"
+                            Grid.Column="2"
+                            Click="ProfileButton_Click">
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border Background="#FFFFFF"
+                                        CornerRadius="10"
+                                        BorderBrush="#1E90FF"
+                                        BorderThickness="1"
+                                        Padding="5">
+                                    <TextBlock Text="{TemplateBinding Content}"
+                                               Foreground="#1E90FF"
+                                               HorizontalAlignment="Center"
+                                               VerticalAlignment="Center"
+                                               FontSize="14"
+                                               FontWeight="Bold" />
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                </Grid>
+
+                <!-- Секция контента -->
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="250" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Панель фильтров -->
+                    <Border x:Name="FiltersPanel"
+                            Background="#FFFFFF"
+                            BorderBrush="#D1D5DB"
+                            BorderThickness="1"
+                            CornerRadius="10"
+                            Padding="10"
+                            Visibility="Collapsed">
+                        <StackPanel>
+                            <TextBlock Text="Фильтры"
+                                       FontSize="16"
+                                       FontWeight="Bold"
+                                       Margin="0,0,0,10"
+                                       Foreground="#1E90FF" />
+
+                            <!-- Категории -->
+                            <TextBlock Text="Категории:" Margin="0,10,0,5" />
+                            <StackPanel x:Name="CategoriesFilterPanel" />
+
+                            <!-- Площадь -->
+                            <TextBlock Text="Площадь (м²):" Margin="0,10,0,5" />
+                            <StackPanel Orientation="Horizontal">
+                                <TextBox x:Name="MinAreaTextBox" Width="50" Margin="0,0,5,0" Tag="Мин" />
+                                <TextBox x:Name="MaxAreaTextBox" Width="50" Tag="Макс" />
+                            </StackPanel>
+
+                            <!-- Цена -->
+                            <TextBlock Text="Цена (₽):" Margin="0,10,0,5" />
+                            <StackPanel>
+                                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                    <TextBlock Text="От:" Margin="0,0,5,0" />
+                                    <TextBlock x:Name="MinPriceTextBlock" Width="60" Text="0" />
+                                    <TextBlock Text="До:" Margin="10,0,5,0" />
+                                    <TextBlock x:Name="MaxPriceTextBlock" Width="60" Text="1000000" />
+                                </StackPanel>
+                                <Slider x:Name="PriceSlider" Minimum="0" Maximum="500000" TickFrequency="5000"
+                                        IsSnapToTickEnabled="True" Value="500000" 
+                                        ValueChanged="PriceSlider_ValueChanged" />
+                            </StackPanel>
+
+                            <!-- Количество комнат -->
+                            <TextBlock Text="Количество комнат:" Margin="0,10,0,5" />
+                            <ComboBox x:Name="RoomCountFilterComboBox" Width="150">
+                                <ComboBoxItem Content="Не выбрано" IsSelected="True" />
+                                <ComboBoxItem Content="1" />
+                                <ComboBoxItem Content="2" />
+                                <ComboBoxItem Content="3" />
+                                <ComboBoxItem Content="4" />
+                                <ComboBoxItem Content="5 и более" />
+                            </ComboBox>
+
+                            <!-- Кнопка применения фильтров -->
+                            <Button Content="Применить фильтры"
+                                    Margin="0,20,0,0"
+                                    Width="150"
+                                    Height="35"
+                                    Click="ApplyFiltersButton_Click">
+                                <Button.Template>
+                                    <ControlTemplate TargetType="Button">
+                                        <Border Background="#1E90FF"
+                                                CornerRadius="10"
+                                                Padding="5">
+                                            <TextBlock Text="{TemplateBinding Content}"
+                                                       Foreground="White"
+                                                       HorizontalAlignment="Center"
+                                                       VerticalAlignment="Center"
+                                                       FontSize="14"
+                                                       FontWeight="Bold" />
+                                        </Border>
+                                    </ControlTemplate>
+                                </Button.Template>
+                            </Button>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Список недвижимости -->
+                    <ListView x:Name="RealEstateListView" Grid.Column="1" Margin="10" SelectionChanged="RealEstateListView_SelectionChanged">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Border Background="#FFFFFF" Margin="5" Padding="10" BorderBrush="#D1D5DB" BorderThickness="1" CornerRadius="5">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="150" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+
+                                        <!-- Исправлено: добавлена проверка на наличие фото -->
+                                        <Image Width="140" Height="100" Margin="5">
+                                            <Image.Style>
+                                                <Style TargetType="Image">
+                                                    <Setter Property="Source" Value="{Binding Photos[0]}"/>
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding Photos.Count}" Value="0">
+                                                            <Setter Property="Source" Value="/Assets/no-photo.png"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Image.Style>
+                                        </Image>
+
+                                        <StackPanel Grid.Column="1" Margin="5">
+                                            <TextBlock Text="{Binding Category}" FontWeight="Bold" FontSize="14" />
+                                            <TextBlock Text="{Binding Address}" FontSize="12" Foreground="Gray" />
+                                            <TextBlock Text="{Binding Area, StringFormat='{}{0} кв.м'}" FontSize="12" />
+                                            <TextBlock Text="{Binding Price, StringFormat='{}{0} Руб.'}" FontSize="12" Foreground="Green" />
+                                            <TextBlock Text="{Binding Rooms, StringFormat='Комнат: {0}'}" FontSize="12" />
+                                        </StackPanel>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </Grid>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>

@@ -1,0 +1,85 @@
+﻿<Window x:Class="Arenda.CitySelectionWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Выбор города"
+        Width="400"
+        Height="300"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        Background="#F9FAFB">
+    <Grid>
+        <Border Background="White" CornerRadius="10" Padding="10">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <!-- Заголовок -->
+                <TextBlock Text="Выберите город"
+                           FontSize="18"
+                           FontWeight="Bold"
+                           Foreground="#1E90FF"
+                           HorizontalAlignment="Center"
+                           Margin="0,0,0,10" />
+
+                <!-- Список городов -->
+                <ListBox x:Name="CityListBox"
+                         Grid.Row="1"
+                         FontSize="14"
+                         BorderBrush="#D1D5DB"
+                         BorderThickness="1"
+                         Background="#FFFFFF"
+                         Foreground="#000000"
+                         MouseDoubleClick="CityListBox_MouseDoubleClick" />
+
+                <!-- Кнопки -->
+                <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10,0,0">
+                    <Button Content="Выбрать"
+                            Width="100"
+                            Height="30"
+                            Margin="5"
+                            Click="ConfirmButton_Click">
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border Background="#1E90FF"
+                                        CornerRadius="10"
+                                        Padding="5">
+                                    <TextBlock Text="{TemplateBinding Content}"
+                                               Foreground="White"
+                                               HorizontalAlignment="Center"
+                                               VerticalAlignment="Center"
+                                               FontSize="14"
+                                               FontWeight="Bold" />
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                    <Button Content="Отмена"
+                            Width="100"
+                            Height="30"
+                            Margin="5"
+                            Click="CancelButton_Click">
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border Background="#FFFFFF"
+                                        CornerRadius="10"
+                                        BorderBrush="#1E90FF"
+                                        BorderThickness="1"
+                                        Padding="5">
+                                    <TextBlock Text="{TemplateBinding Content}"
+                                               Foreground="#1E90FF"
+                                               HorizontalAlignment="Center"
+                                               VerticalAlignment="Center"
+                                               FontSize="14"
+                                               FontWeight="Bold" />
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>
