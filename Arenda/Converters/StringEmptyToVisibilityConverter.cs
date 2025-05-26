@@ -7,17 +7,14 @@ using System.Threading.Tasks;
 using System.Windows.Data;
 using System.Windows;
 
-namespace Arenda
+namespace Arenda.Converters
 {
     public class StringEmptyToVisibilityConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value is string str && string.IsNullOrWhiteSpace(str))
-            {
-                return Visibility.Collapsed;
-            }
-            return Visibility.Visible;
+            // Скрывать, если строка пустая или состоит только из пробелов, иначе показывать
+            return string.IsNullOrWhiteSpace(value as string) ? Visibility.Collapsed : Visibility.Visible;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

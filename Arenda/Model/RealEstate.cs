@@ -6,13 +6,13 @@ namespace Arenda.Models
 {
     public class RealEstate
     {
-         public int Id { get; set; }
-         public string Address { get; set; }
-         public string Category { get; set; }
-         public decimal Area { get; set; }
-         public decimal Price { get; set; }
-         public int Rooms { get; set; }
-         public string[] Photos { get; set; }
+        public int Id { get; set; }
+        public string Address { get; set; }
+        public string Category { get; set; }
+        public decimal Area { get; set; }
+        public decimal Price { get; set; }
+        public int Rooms { get; set; }
+        public string[] Photos { get; set; }
     }
 
     [Table("roles")]
@@ -47,11 +47,9 @@ namespace Arenda.Models
         public int RoleId { get; set; }
         public Role Role { get; set; }
 
-        [Column("is_owner")]
-        public bool IsOwner { get; set; }
-
         public ICollection<ResidentialProperty> Properties { get; set; }
         public ICollection<Review> Reviews { get; set; }
+        public ICollection<Booking> Bookings { get; set; } // Добавлено для связи с бронями
     }
 
     [Table("property_categories")]
@@ -119,8 +117,8 @@ namespace Arenda.Models
 
         public ICollection<PropertyPhoto> Photos { get; set; }
         public ICollection<Review> Reviews { get; set; }
+        public ICollection<Booking> Bookings { get; set; } // Добавлено для связи с бронями
     }
-
 
     [Table("reviews")]
     public class Review
@@ -161,5 +159,47 @@ namespace Arenda.Models
 
         [Column("upload_date")]
         public DateTime UploadDate { get; set; }
+
+        [Column("photo_url2")]
+        public string PhotoUrl2 { get; set; }
+
+        [Column("photo_url3")]
+        public string PhotoUrl3 { get; set; }
+
+        [Column("photo_url4")]
+        public string PhotoUrl4 { get; set; }
+
+        [Column("photo_url5")]
+        public string PhotoUrl5 { get; set; }
+
+        [Column("photo_url6")]
+        public string PhotoUrl6 { get; set; }
+    }
+
+    [Table("bookings")]
+    public class Booking
+    {
+        [Column("id")]
+        public int Id { get; set; }
+
+        [Column("property_id")]
+        public int PropertyId { get; set; }
+        public ResidentialProperty Property { get; set; }
+
+        [Column("user_id")]
+        public int UserId { get; set; }
+        public User User { get; set; }
+
+        [Column("start_date")]
+        public DateTime StartDate { get; set; }
+
+        [Column("end_date")]
+        public DateTime EndDate { get; set; }
+
+        [Column("booking_date")]
+        public DateTime BookingDate { get; set; }
+
+        [Column("status")]
+        public string Status { get; set; }
     }
 }

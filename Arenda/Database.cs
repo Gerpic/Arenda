@@ -14,6 +14,7 @@ namespace Arenda
                 return context.ResidentialProperties
                     .Include(r => r.Photos)
                     .Include(r => r.Category)
+                    .Include(r => r.City)
                     .Include(r => r.Owner)
                     .FirstOrDefault(r => r.Id == id);
             }
@@ -23,7 +24,9 @@ namespace Arenda
         {
             using (var context = new AppDbContext())
             {
-                return context.Users.FirstOrDefault(u => u.Id == id);
+                return context.Users
+                    .Include(u => u.Role)
+                    .FirstOrDefault(u => u.Id == id);
             }
         }
     }

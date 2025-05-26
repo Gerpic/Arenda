@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System;
+using System.Linq;
+using System.Windows;
 using Arenda.Data;
 using Arenda.Models;
 
@@ -29,20 +31,25 @@ namespace Arenda
                 if (user != null && user.Password == PasswordBox.Password)
                 {
                     CurrentUser.Id = user.Id;
+                    CurrentUser.RoleId = user.RoleId; // сохраняем id роли
 
-                    // Открываем окно выбора города
-                    var cityWindow = new CitySelectionWindow();
-                    if (cityWindow.ShowDialog() == true && !string.IsNullOrEmpty(cityWindow.SelectedCity))
+                    // Открываем нужное окно в зависимости от роли
+                    if (user.RoleId == 1)
                     {
-                        // Исправлено: передаем оба параметра
-                        var mainMenu = new MainMenu(CurrentUser.Id, cityWindow.SelectedCity);
-                        mainMenu.Show();
-                        this.Close();
+                        var adminWindow = new AdminWindow(CurrentUser.Id);
+                        adminWindow.Show();
+                    }
+                    else if (user.RoleId == 2)
+                    {
+                        var managerWindow = new ManagerWindow(CurrentUser.Id);
+                        managerWindow.Show();
                     }
                     else
                     {
-                        MessageBox.Show("Выберите город для продолжения!");
+                        MessageBox.Show("Неизвестная роль пользователя.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                        return;
                     }
+                    this.Close();
                 }
                 else
                 {
@@ -55,13 +62,6 @@ namespace Arenda
             }
         }
 
-        private void RegisterButton_Click(object sender, RoutedEventArgs e)
-        {
-            Registration registrationWindow = new Registration();
-            registrationWindow.Show();
-            this.Close();
-        }
-
         private void TogglePasswordVisibility_Click(object sender, RoutedEventArgs e)
         {
             isPasswordVisible = !isPasswordVisible;
@@ -71,9 +71,9 @@ namespace Arenda
         }
     }
 
-
     public static class CurrentUser
     {
         public static int Id { get; set; }
+        public static int RoleId { get; set; }
     }
 }
