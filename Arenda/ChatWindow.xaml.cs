@@ -1,88 +1,70 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls;
 using Arenda.ViewModels;
 
-namespace Arenda
+namespace Arenda.Windows
 {
     public partial class ChatWindow : Window
     {
-        public ChatWindow()
+        private ChatWindowViewModel vm;
+        private int _managerId;
+
+        public ChatWindow(int managerId)
         {
             InitializeComponent();
-
-            // Пример: создаём фейковую вьюмодель для теста (замени на свою логику)
-            var vm = new ChatWindowViewModel();
+            _managerId = managerId;
+            vm = new ChatWindowViewModel(managerId);
             DataContext = vm;
-
-            // Пример добавления чатов и сообщений (замени на свою загрузку из БД)
-            var chat1 = new ChatViewModel
-            {
-                DisplayName = "Иван Иванов",
-                Avatar = null,
-                LastMessage = "Привет!",
-                LastMessageDate = "10:30",
-                UnreadCount = 2,
-                RoleLabel = "Владелец"
-            };
-            chat1.Messages.Add(new MessageViewModel { Content = "Привет!", Time = System.DateTime.Now, IsOwn = false });
-            chat1.Messages.Add(new MessageViewModel { Content = "Добрый день!", Time = System.DateTime.Now, IsOwn = true });
-            vm.Chats.Add(chat1);
-
-            var chat2 = new ChatViewModel
-            {
-                DisplayName = "Петр Петров",
-                Avatar = null,
-                LastMessage = "Когда встреча?",
-                LastMessageDate = "09:15",
-                UnreadCount = 0,
-                RoleLabel = "Менеджер"
-            };
-            chat2.Messages.Add(new MessageViewModel { Content = "Когда встреча?", Time = System.DateTime.Now, IsOwn = false });
-            vm.Chats.Add(chat2);
-
-            vm.SelectedChat = chat1;
         }
 
-        // Пример отправки сообщения
+        public ChatWindow(int managerId, int chatId, int interlocutorId)
+        {
+            InitializeComponent();
+            _managerId = managerId;
+            vm = new ChatWindowViewModel(managerId, chatId, interlocutorId);
+            DataContext = vm;
+        }
+
         private void SendMessageButton_Click(object sender, RoutedEventArgs e)
         {
-            if (DataContext is ChatWindowViewModel vm && vm.SelectedChat != null)
+            if (vm?.SelectedChat != null)
             {
                 string text = MessageTextBox.Text;
                 if (!string.IsNullOrWhiteSpace(text))
                 {
-                    vm.SelectedChat.Messages.Add(new MessageViewModel
-                    {
-                        Content = text,
-                        Time = System.DateTime.Now,
-                        IsOwn = true
-                    });
+                    vm.SendMessage(text);
                     MessageTextBox.Clear();
+                    ScrollMessagesToEnd();
                 }
             }
         }
 
-        // Пример выбора чата из списка
         private void ChatsListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (DataContext is ChatWindowViewModel vm)
+            if (ChatsListBox.SelectedItem is ChatListItemViewModel chat && chat != vm.SelectedChat)
             {
-                vm.SelectedChat = (ChatViewModel)ChatsListBox.SelectedItem;
+                vm.SelectedChat = chat;
+                vm.LoadMessages(chat.ChatId, chat.InterlocutorId);
+                MessagesPanel.ItemsSource = null;
+                MessagesPanel.ItemsSource = chat.Messages;
+                ScrollMessagesToEnd();
             }
         }
-    }
 
-    // ViewModel для окна чата
-    public class ChatWindowViewModel
-    {
-        public System.Collections.ObjectModel.ObservableCollection<ChatViewModel> Chats { get; set; }
-            = new System.Collections.ObjectModel.ObservableCollection<ChatViewModel>();
-
-        private ChatViewModel _selectedChat;
-        public ChatViewModel SelectedChat
+        private void BackButton_Click(object sender, RoutedEventArgs e)
         {
-            get => _selectedChat;
-            set => _selectedChat = value;
+            var managerWindow = new ManagerWindow(_managerId);
+            managerWindow.Show();
+            this.Close();
+        }
+
+        private void ScrollMessagesToEnd()
+        {
+            Dispatcher.BeginInvoke(new Action(() =>
+            {
+                MessagesScrollViewer?.ScrollToEnd();
+            }), System.Windows.Threading.DispatcherPriority.ApplicationIdle);
         }
     }
 }

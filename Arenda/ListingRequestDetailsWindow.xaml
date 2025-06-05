@@ -1,0 +1,201 @@
+﻿<Window x:Class="Arenda.Windows.ListingRequestDetailsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Детали заявления"
+        Width="1050"
+        Height="720"
+        WindowStartupLocation="CenterOwner"
+        Background="#F9FAFB">
+    <Grid>
+        <Border Background="White" CornerRadius="10" Padding="20" Margin="10">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2.5*"/>
+                    <!-- Информация -->
+                    <ColumnDefinition Width="2.2*"/>
+                    <!-- Фото -->
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <!-- Назад -->
+                    <RowDefinition Height="*"/>
+                    <!-- Контент -->
+                    <RowDefinition Height="Auto"/>
+                    <!-- Причина отклонения -->
+                    <RowDefinition Height="Auto"/>
+                    <!-- Причина показа -->
+                    <RowDefinition Height="Auto"/>
+                    <!-- Кнопки -->
+                </Grid.RowDefinitions>
+
+                <!-- Кнопка назад -->
+                <Button Content="← Назад"
+                        Width="90"
+                        Height="32"
+                        Margin="0,0,0,12"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        Click="BackButton_Click"
+                        Background="#F1F5F9"
+                        Foreground="#1E90FF"
+                        BorderThickness="1"
+                        BorderBrush="#1E90FF"
+                        FontWeight="Bold"
+                        FontSize="13">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border Background="{TemplateBinding Background}"
+                                    CornerRadius="7"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                    Padding="2">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+
+                <!-- Левая часть: информация -->
+                <Grid Grid.Row="1" Grid.Column="0" Margin="0,0,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="170"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Text="Владелец:" FontWeight="Bold" Grid.Row="0" Grid.Column="0" Margin="0,3,0,3"/>
+                    <TextBlock x:Name="OwnerText" Grid.Row="0" Grid.Column="1" Margin="0,3,0,3"/>
+
+                    <TextBlock Text="Категория:" FontWeight="Bold" Grid.Row="1" Grid.Column="0" Margin="0,3,0,3"/>
+                    <TextBlock x:Name="CategoryText" Grid.Row="1" Grid.Column="1" Margin="0,3,0,3"/>
+
+                    <TextBlock Text="Город:" FontWeight="Bold" Grid.Row="2" Grid.Column="0" Margin="0,3,0,3"/>
+                    <TextBlock x:Name="CityText" Grid.Row="2" Grid.Column="1" Margin="0,3,0,3"/>
+
+                    <TextBlock Text="Адрес:" FontWeight="Bold" Grid.Row="3" Grid.Column="0" Margin="0,3,0,3"/>
+                    <TextBlock x:Name="AddressText" Grid.Row="3" Grid.Column="1" Margin="0,3,0,3"/>
+
+                    <TextBlock Text="Площадь:" FontWeight="Bold" Grid.Row="4" Grid.Column="0" Margin="0,3,0,3"/>
+                    <TextBlock x:Name="AreaText" Grid.Row="4" Grid.Column="1" Margin="0,3,0,3"/>
+
+                    <TextBlock Text="Описание:" FontWeight="Bold" Grid.Row="5" Grid.Column="0" Margin="0,3,0,3"/>
+                    <TextBlock x:Name="DescriptionText" Grid.Row="5" Grid.Column="1" Margin="0,3,0,3"
+                               TextWrapping="Wrap"
+                               VerticalAlignment="Top"/>
+
+                    <TextBlock Text="Комнат:" FontWeight="Bold" Grid.Row="6" Grid.Column="0" Margin="0,3,0,3"/>
+                    <TextBlock x:Name="RoomCountText" Grid.Row="6" Grid.Column="1" Margin="0,3,0,3"/>
+
+                    <TextBlock Text="Вместимость:" FontWeight="Bold" Grid.Row="7" Grid.Column="0" Margin="0,3,0,3"/>
+                    <TextBlock x:Name="CapacityText" Grid.Row="7" Grid.Column="1" Margin="0,3,0,3"/>
+
+                    <TextBlock Text="Цена:" FontWeight="Bold" Grid.Row="8" Grid.Column="0" Margin="0,3,0,3"/>
+                    <TextBlock x:Name="PriceText" Grid.Row="8" Grid.Column="1" Margin="0,3,0,3"/>
+
+                    <TextBlock Text="Дата подачи:" FontWeight="Bold" Grid.Row="9" Grid.Column="0" Margin="0,3,0,3"/>
+                    <TextBlock x:Name="SubmissionDateText" Grid.Row="9" Grid.Column="1" Margin="0,3,0,3"/>
+
+                    <TextBlock Text="Статус:" FontWeight="Bold" Grid.Row="10" Grid.Column="0" Margin="0,3,0,3"/>
+                    <TextBlock x:Name="StatusText" Grid.Row="10" Grid.Column="1" Margin="0,3,0,3"/>
+                </Grid>
+
+                <!-- Правая часть: фотки -->
+                <StackPanel Grid.Column="1" Grid.Row="1" Margin="10,0,0,0">
+                    <TextBlock Text="Фотографии:" FontWeight="Bold" Margin="0,0,0,8"/>
+                    <ListBox x:Name="PhotosList"
+                             Height="270"
+                             Width="451"
+                             ItemsSource="{Binding}" DisplayMemberPath="." />
+                </StackPanel>
+
+                <!-- Причина отклонения ввод -->
+                <StackPanel x:Name="RejectReasonPanel" Grid.Row="2" Grid.Column="0" Visibility="Collapsed" Margin="0,12,0,0">
+                    <TextBlock Text="Причина отклонения:"/>
+                    <TextBox x:Name="RejectReasonBox" Height="48" TextWrapping="Wrap" Margin="0,6,0,0"/>
+                    <Button Content="Отклонить с причиной" Margin="0,8,0,0" Click="ConfirmRejectButton_Click" Width="150" Height="32">
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border Background="#FFFFFF"
+                                        CornerRadius="7"
+                                        BorderBrush="#1E90FF"
+                                        BorderThickness="1"
+                                        Padding="2">
+                                    <TextBlock Text="{TemplateBinding Content}"
+                                               Foreground="#1E90FF"
+                                               HorizontalAlignment="Center"
+                                               VerticalAlignment="Center"
+                                               FontSize="13"
+                                               FontWeight="Bold" />
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                </StackPanel>
+
+                <!-- Показывать причину если уже отклонено -->
+                <StackPanel x:Name="RejectionReasonPanel" Grid.Row="3" Grid.Column="0" Visibility="Collapsed" Margin="0,6,0,0">
+                    <TextBlock Text="Причина отклонения:" FontWeight="Bold"/>
+                    <TextBlock x:Name="RejectionReasonText" TextWrapping="Wrap"/>
+                </StackPanel>
+
+                <!-- Кнопки принять/отклонить внизу окна справа -->
+                <StackPanel Orientation="Horizontal"
+                            Grid.Row="4"
+                            Grid.Column="1"
+                            Margin="0,15,0,0"
+                            HorizontalAlignment="Right">
+                    <Button x:Name="ApproveButton" Content="Принять" Width="90" Height="35" Margin="0,0,8,0" Click="ApproveButton_Click">
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border Background="#FFFFFF"
+                                        CornerRadius="7"
+                                        BorderBrush="#1E90FF"
+                                        BorderThickness="1"
+                                        Padding="2">
+                                    <TextBlock Text="{TemplateBinding Content}"
+                                               Foreground="#1E90FF"
+                                               HorizontalAlignment="Center"
+                                               VerticalAlignment="Center"
+                                               FontSize="14"
+                                               FontWeight="Bold" />
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                    <Button x:Name="RejectButton" Content="Отклонить" Width="90" Height="35" Click="RejectButton_Click">
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border Background="#FFFFFF"
+                                        CornerRadius="7"
+                                        BorderBrush="#1E90FF"
+                                        BorderThickness="1"
+                                        Padding="2">
+                                    <TextBlock Text="{TemplateBinding Content}"
+                                               Foreground="#1E90FF"
+                                               HorizontalAlignment="Center"
+                                               VerticalAlignment="Center"
+                                               FontSize="14"
+                                               FontWeight="Bold" />
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>

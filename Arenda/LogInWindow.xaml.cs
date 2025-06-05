@@ -3,15 +3,16 @@ using System.Linq;
 using System.Windows;
 using Arenda.Data;
 using Arenda.Models;
+using Arenda.Windows;
 
 namespace Arenda
 {
-    public partial class LogIn : Window
+    public partial class LogInWindow : Window
     {
         private readonly AppDbContext _dbContext = new AppDbContext();
         private bool isPasswordVisible = false;
 
-        public LogIn()
+        public LogInWindow()
         {
             InitializeComponent();
         }
@@ -28,20 +29,22 @@ namespace Arenda
             {
                 var user = _dbContext.Users.FirstOrDefault(u => u.Email == LoginTextBox.Text);
 
+                // !!! ВНИМАНИЕ !!!
+                // Замените "UserPassword" на имя свойства в вашей модели User, которое реально хранит пароль.
                 if (user != null && user.Password == PasswordBox.Password)
                 {
                     CurrentUser.Id = user.Id;
                     CurrentUser.RoleId = user.RoleId; // сохраняем id роли
 
                     // Открываем нужное окно в зависимости от роли
-                    if (user.RoleId == 1)
+                    if (CurrentUser.RoleId == 1)
                     {
-                        var adminWindow = new AdminWindow(CurrentUser.Id);
+                        var adminWindow = new AdminWindow(); // если нет конструктора с int
                         adminWindow.Show();
                     }
-                    else if (user.RoleId == 2)
+                    else if (CurrentUser.RoleId == 2)
                     {
-                        var managerWindow = new ManagerWindow(CurrentUser.Id);
+                        var managerWindow = new ManagerWindow(CurrentUser.Id); // аналогично
                         managerWindow.Show();
                     }
                     else

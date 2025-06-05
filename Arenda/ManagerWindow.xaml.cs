@@ -1,21 +1,23 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using Arenda.Data;
 using Microsoft.EntityFrameworkCore;
+using Arenda.Windows;
 
 namespace Arenda
 {
     public partial class ManagerWindow : Window
     {
         private readonly AppDbContext _dbContext;
+        private readonly int _userId;
 
         public ManagerWindow(int userId)
         {
             InitializeComponent();
             _dbContext = new AppDbContext();
+            _userId = userId;
         }
 
         protected override async void OnContentRendered(EventArgs e)
@@ -28,7 +30,6 @@ namespace Arenda
         {
             try
             {
-                // Загрузка списка броней с основной инфой
                 var bookings = await _dbContext.Bookings
                     .Include(b => b.Property)
                         .ThenInclude(p => p.Category)
@@ -57,22 +58,35 @@ namespace Arenda
         {
             if (BookingsListView.SelectedItem is BookingListItem booking)
             {
-                var bookingDetailsWindow = new BookingDetailsWindow(booking.Id);
-                bookingDetailsWindow.Owner = this;
-                bookingDetailsWindow.ShowDialog();
-                BookingsListView.SelectedItem = null;
+                var bookingDetailsWindow = new BookingDetailsWindow(booking.Id, _userId);
+                bookingDetailsWindow.Show();
+                this.Close();
             }
         }
 
         private void OpenChatsButton_Click(object sender, RoutedEventArgs e)
         {
-            var chatListWindow = new ChatListWindow();
-            chatListWindow.Owner = this;
-            chatListWindow.ShowDialog();
+            var chatWindow = new ChatWindow(_userId);
+            chatWindow.Show();
+            this.Close();
+        }
+
+        private void OpenListingRequestsButton_Click(object sender, RoutedEventArgs e)
+        {
+            var window = new ListingRequestsWindow(_userId);
+            window.Show();
+            this.Close();
+        }
+
+        private void LogoutButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Открытие окна авторизации (или главное окно приложения)
+            var loginWindow = new LogInWindow();
+            loginWindow.Show();
+            this.Close();
         }
     }
 
-    // Класс для представления элемента списка бронирований
     public class BookingListItem
     {
         public int Id { get; set; }

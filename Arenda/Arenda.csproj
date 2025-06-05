@@ -188,25 +188,57 @@
     <Compile Include="AdminWindow.xaml.cs">
       <DependentUpon>AdminWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="BookingChatWindow.xaml.cs">
+      <DependentUpon>BookingChatWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ChatWindow.xaml.cs">
       <DependentUpon>ChatWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Converters\BoolToAlignmentConverter.cs" />
-    <Compile Include="Converters\MessageBubbleBrushConverter.cs" />
-    <Compile Include="Converters\UnreadToVisibilityConverter.cs" />
     <Compile Include="Data\AppDbContext.cs" />
     <Compile Include="Database.cs" />
-    <Compile Include="AddCityToUsers.cs" />
-    <Compile Include="Model\RealEstate.cs" />
+    <Compile Include="EditPropertyWindow.xaml.cs">
+      <DependentUpon>EditPropertyWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ListingRequestDetailsWindow.xaml.cs">
+      <DependentUpon>ListingRequestDetailsWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ListingRequestsWindow.xaml.cs">
+      <DependentUpon>ListingRequestsWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Booking.cs" />
+    <Compile Include="Models\Chat.cs" />
+    <Compile Include="Models\City.cs" />
+    <Compile Include="Models\ListingRequestPhoto.cs" />
+    <Compile Include="Models\Message.cs" />
     <Compile Include="BookingDetailsWindow.xaml.cs">
       <DependentUpon>BookingDetailsWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="ManagerWindow.xaml.cs">
       <DependentUpon>ManagerWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Converters\StringEmptyToVisibilityConverter.cs" />
-    <Compile Include="ViewModel\ChatViewModel.cs" />
+    <Compile Include="Models\PropertyCategory.cs" />
+    <Compile Include="Models\PropertyListingRequest.cs" />
+    <Compile Include="Models\PropertyPhoto.cs" />
+    <Compile Include="Models\ResidentialProperty.cs" />
+    <Compile Include="Models\Review.cs" />
+    <Compile Include="Models\Role.cs" />
+    <Compile Include="Models\SupportMessage.cs" />
+    <Compile Include="Models\SupportTicket.cs" />
+    <Compile Include="Models\User.cs" />
+    <Compile Include="SupportChatWindow.xaml.cs">
+      <DependentUpon>SupportChatWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\ChatListItemViewModel.cs" />
+    <Compile Include="ViewModels\ChatViewModel.cs" />
+    <Compile Include="ViewModels\ChatWindowViewModel.cs" />
+    <Compile Include="ViewModels\MessageViewModel.cs" />
+    <Compile Include="ViewModels\SupportMessageViewModel.cs" />
+    <Compile Include="ViewModels\TicketViewModel.cs" />
     <Page Include="AdminWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="BookingChatWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -214,7 +246,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MainWindow.xaml">
+    <Page Include="EditPropertyWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ListingRequestDetailsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ListingRequestsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="LogInWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -222,8 +266,8 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
+    <Compile Include="LogInWindow.xaml.cs">
+      <DependentUpon>LogInWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Page Include="BookingDetailsWindow.xaml">
@@ -231,6 +275,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ManagerWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SupportChatWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
