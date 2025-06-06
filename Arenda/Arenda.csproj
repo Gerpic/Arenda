@@ -191,6 +191,9 @@
     <Compile Include="BookingChatWindow.xaml.cs">
       <DependentUpon>BookingChatWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="BookingReportWindow.xaml.cs">
+      <DependentUpon>BookingReportWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ChatWindow.xaml.cs">
       <DependentUpon>ChatWindow.xaml</DependentUpon>
     </Compile>
@@ -206,6 +209,7 @@
       <DependentUpon>ListingRequestsWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Models\Booking.cs" />
+    <Compile Include="Models\BookingReportEntry.cs" />
     <Compile Include="Models\Chat.cs" />
     <Compile Include="Models\City.cs" />
     <Compile Include="Models\ListingRequestPhoto.cs" />
@@ -225,6 +229,7 @@
     <Compile Include="Models\SupportMessage.cs" />
     <Compile Include="Models\SupportTicket.cs" />
     <Compile Include="Models\User.cs" />
+    <Compile Include="Services\BookingReportService.cs" />
     <Compile Include="SupportChatWindow.xaml.cs">
       <DependentUpon>SupportChatWindow.xaml</DependentUpon>
     </Compile>
@@ -239,6 +244,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="BookingChatWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="BookingReportWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

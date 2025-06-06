@@ -19,6 +19,8 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
                         <!-- Кнопка выхода -->
+                        <ColumnDefinition Width="Auto" />
+                        <!-- Кнопка отчета -->
                         <ColumnDefinition Width="*" />
                         <!-- Заголовок -->
                         <ColumnDefinition Width="Auto" />
@@ -27,7 +29,7 @@
                         <!-- Чаты -->
                     </Grid.ColumnDefinitions>
 
-                    <!-- Кнопка выхода (слева) -->
+                    <!-- Кнопка выхода (самая левая) -->
                     <Button Content="Выйти"
                             Width="90"
                             Height="35"
@@ -54,8 +56,33 @@
                         </Button.Template>
                     </Button>
 
+                    <!-- Кнопка отчета (сразу после выхода) -->
+                    <Button Content="Отчет по бронированиям"
+                            Width="200"
+                            Height="35"
+                            Margin="0,0,10,0"
+                            Grid.Column="1"
+                            Click="OpenReportButton_Click">
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border Background="#FFFFFF"
+                                        CornerRadius="10"
+                                        BorderBrush="#2D8C2D"
+                                        BorderThickness="1"
+                                        Padding="5">
+                                    <TextBlock Text="{TemplateBinding Content}"
+                                               Foreground="#2D8C2D"
+                                               HorizontalAlignment="Center"
+                                               VerticalAlignment="Center"
+                                               FontSize="14"
+                                               FontWeight="Bold" />
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+
                     <TextBlock Text="Бронирования"
-                               Grid.Column="1"
+                               Grid.Column="2"
                                HorizontalAlignment="Center"
                                VerticalAlignment="Center"
                                FontSize="18"
@@ -66,7 +93,7 @@
                             Width="200"
                             Height="35"
                             Margin="5"
-                            Grid.Column="2"
+                            Grid.Column="3"
                             Click="OpenListingRequestsButton_Click">
                         <Button.Template>
                             <ControlTemplate TargetType="Button">
@@ -90,7 +117,7 @@
                             Width="120"
                             Height="35"
                             Margin="5"
-                            Grid.Column="3"
+                            Grid.Column="4"
                             Click="OpenChatsButton_Click">
                         <Button.Template>
                             <ControlTemplate TargetType="Button">

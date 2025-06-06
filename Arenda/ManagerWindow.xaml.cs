@@ -85,6 +85,14 @@ namespace Arenda
             loginWindow.Show();
             this.Close();
         }
+
+        // Логика кнопки отчета
+        private void OpenReportButton_Click(object sender, RoutedEventArgs e)
+        {
+            var reportWindow = new BookingReportWindow(_userId);
+            reportWindow.Show();
+            this.Close();
+        }
     }
 
     public class BookingListItem
